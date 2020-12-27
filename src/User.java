@@ -16,8 +16,8 @@ public class User {
         return Password;
     }
 
-    public void setPassword(String Password) {
-        Password = Password;
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public String getAddress() {

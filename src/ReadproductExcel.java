@@ -4,44 +4,41 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.DecimalFormat;
 
-public class ReadExcel {
-    /*
-    readExcel是什么方法？成员方法
-     */
-    public User[] readExcel(File file) {
-        User users[] = null;
+public class ReadproductExcel {
+    public Product[] readproductExcel(InputStream in) {
+        Product products[] = null;
         try {
-            XSSFWorkbook xw = new XSSFWorkbook(new FileInputStream(file));
+            XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
-            users = new User[xs.getLastRowNum()];
+            products = new Product[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
-                User user = new User();
+                Product product = new Product();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
                         continue;
                     if (k == 0) {
-                        user.setUsername(this.getValue(cell));
+                        product.setId(this.getValue(cell));
                     } else if (k == 1) {
-                        user.setPassword(this.getValue(cell));
+                        product.setName(this.getValue(cell));
                     } else if (k == 2) {
-                        user.setAddress(this.getValue(cell));
+                        product.setPrice(Float.parseFloat( this.getValue(cell)));
                     } else if (k == 3) {
-                        user.setPhone(this.getValue(cell));
+                        product.setDescribe(this.getValue(cell));
                     }
-                    users[j-1]=user;
+                    products[j-1]=product;
 
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return users;
+        return products;
     }
 
     private String getValue(XSSFCell cell) {
@@ -59,7 +56,9 @@ public class ReadExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
-                value = cell.getNumericCellValue() + "";
+
+                DecimalFormat df = new DecimalFormat("#");
+                value = df.format(cell.getNumericCellValue());
                 break;
             case FORMULA:
                 value = cell.getCellFormula();
