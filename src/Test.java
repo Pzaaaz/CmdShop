@@ -34,13 +34,13 @@ public class Test {
                     System.out.println("登录失败");
             }
 
-        for(int i = 0 ; i<users.length ; i++){
+        /*for(int i = 0 ; i<users.length ; i++){
             System.out.println(users[i].getUsername());
             System.out.println(users[i].getPassword());
             System.out.println(users[i].getAddress());
             System.out.println(users[i].getPhone());
         }
-
+*/
         }
     }
 }
