@@ -1,38 +1,38 @@
 public class Product {
-    private String id;
-    private String name;
-    private float price;
-    private String describe;
+    private String Id;
+    private String Name;
+    private float Price;
+    private String Describe;
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public float getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(float price) {
-        this.price = price;
+        Price = price;
     }
 
     public String getDescribe() {
-        return describe;
+        return Describe;
     }
 
     public void setDescribe(String describe) {
-        this.describe = describe;
+        Describe = describe;
     }
 }

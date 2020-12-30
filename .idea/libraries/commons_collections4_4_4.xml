@@ -7,6 +7,7 @@
       <root url="jar://D:/蓝桥/CmdShop/poi/poi-ooxml-4.1.2.jar!/" />
       <root url="jar://D:/蓝桥/CmdShop/poi/poi-ooxml-schemas-4.1.2.jar!/" />
       <root url="jar://D:/蓝桥/CmdShop/poi/xmlbeans-3.1.0.jar!/" />
+      <root url="jar://D:/蓝桥/CmdShop/commons-codec-1.13.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

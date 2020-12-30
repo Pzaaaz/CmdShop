@@ -7,9 +7,12 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
         InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");
+        InputStream in1 = Class.forName("Test").getResourceAsStream("/Products.xlsx");
         //File file =new File("D:\\学习\\Cmdshop\\src\\users.xlsx");
-        ReaduresExcel readExcel = new ReaduresExcel();
-        User users[] = readExcel.readExcel(in);
+        ReaduresExcel readuresExcel = new ReaduresExcel();
+        ReadproductExcel readproductExcel = new ReadproductExcel();
+        User users[] = readuresExcel.uresExcel(in);
+        Product products[] = readproductExcel.productExcel(in1);
 
         boolean bool = true;
         while (bool){
@@ -21,13 +24,49 @@ public class Test {
 
             System.out.println("请输入密码: ");
             String password = sc.next();
-            for (User user : users) {
-                System.out.println("系统读取到的密码有： " + user.getPassword());
+            for(int cou = 0 ; cou < users.length ; cou++) {
+                if(username.equals(users[cou].getUsername())){
+                    System.out.println("系统读取到的密码是： " + users[cou].getPassword());
+                }
             }
-
             for (User user : users) {
                 if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
                     System.out.println("登陆成功");
+                    for(Product product:products) {
+                        System.out.print(product.getId());
+                        System.out.print("\t"+product.getName());
+                        System.out.print("\t"+product.getPrice());
+                        System.out.println("\t"+product.getDescribe());
+
+                    }
+                    int counnt = 0;
+                    Product productes[] = new Product[3];
+                    boolean bool1 = true;
+                    while (bool1) {
+
+                        System.out.println("是否添加商品，添加选择1，退出选择0");
+                        int cun = sc.nextInt();
+                        if(cun!=1&&cun!=0){
+                            System.out.println("请输入正确的选择");
+                        }
+                        else if(cun == 1) {
+                            System.out.println("选择想要加入购物车的id：");
+                            String inPic = sc.next();
+                            in1 = null;
+                            in1 = Class.forName("Test").getResourceAsStream("/Products.xlsx");
+                            Product product = readproductExcel.getProductByid(inPic, in1);
+                            //将商品加入购物车
+                            if (product != null)
+                                productes[counnt++] = product;
+                            for (int i = 0; i<=counnt-1; i++){
+                                if (productes[i] != null){
+                                    System.out.println("你的购物车中已经有" + productes[i].getName());
+                                }
+                            }
+                        }else if(cun == 0){
+                            bool1 = false;
+                        }
+                    }
                     bool = false;
                     break;
                 } else

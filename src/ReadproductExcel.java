@@ -9,10 +9,10 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class ReadproductExcel {
-    public Product[] readproductExcel(InputStream in) {
+    public Product[] productExcel(InputStream in1) {
         Product products[] = null;
         try {
-            XSSFWorkbook xw = new XSSFWorkbook(in);
+            XSSFWorkbook xw = new XSSFWorkbook(in1);
             XSSFSheet xs = xw.getSheetAt(0);
             products = new Product[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
@@ -71,5 +71,36 @@ public class ReadproductExcel {
                 break;
         }
         return value;
+    }
+    public Product getProductByid(String id,InputStream in1) {
+        try {
+            XSSFWorkbook xw = new XSSFWorkbook(in1);
+            XSSFSheet xs = xw.getSheetAt(0);
+            for (int j = 1; j <= xs.getLastRowNum(); j++) {
+                XSSFRow row = xs.getRow(j);
+                Product product = new Product();
+                for (int k = 0; k <= row.getLastCellNum(); k++) {
+                    XSSFCell cell = row.getCell(k);
+                    if (cell == null)
+                        continue;
+                    if (k == 0) {
+                        product.setId(this.getValue(cell));
+                    } else if (k == 1) {
+                        product.setName(this.getValue(cell));
+                    } else if (k == 2) {
+                        product.setPrice(Float.parseFloat( this.getValue(cell)));
+                    } else if (k == 3) {
+                        product.setDescribe(this.getValue(cell));
+                    }
+                    //如果输入的id和product中的id一致，则返回product
+                }
+                if(id.equals(product.getId())){
+                    return product;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

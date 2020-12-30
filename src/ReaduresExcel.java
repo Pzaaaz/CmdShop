@@ -12,7 +12,7 @@ public class ReaduresExcel {
     /*
     readExcel是什么方法？成员方法
      */
-    public User[] readExcel( InputStream in) {
+    public User[] uresExcel( InputStream in) {
         User users[] = null;
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
