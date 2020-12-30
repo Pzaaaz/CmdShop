@@ -44,9 +44,9 @@ public class Test {
                     boolean bool1 = true;
                     while (bool1) {
 
-                        System.out.println("是否添加商品，添加选择1，退出选择0");
+                        System.out.println("是否添加商品，选择1添加商品，选择2查看购物车，退出选择0");
                         int cun = sc.nextInt();
-                        if(cun!=1&&cun!=0){
+                        if(cun!=1&&cun!=0&&cun!=2){
                             System.out.println("请输入正确的选择");
                         }
                         else if(cun == 1) {
@@ -58,13 +58,19 @@ public class Test {
                             //将商品加入购物车
                             if (product != null)
                                 productes[counnt++] = product;
+
+                        }else if(cun == 0){
+                            bool1 = false;
+                        }
+                        else if(cun==2){
+                            if(productes[0]==null){
+                                System.out.println("购物车为空，请添加商品");
+                            }
                             for (int i = 0; i<=counnt-1; i++){
                                 if (productes[i] != null){
                                     System.out.println("你的购物车中已经有" + productes[i].getName());
                                 }
                             }
-                        }else if(cun == 0){
-                            bool1 = false;
                         }
                     }
                     bool = false;
