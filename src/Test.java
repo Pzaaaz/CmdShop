@@ -37,55 +37,60 @@ public class Test {
                         System.out.print("\t"+product.getName());
                         System.out.print("\t"+product.getPrice());
                         System.out.println("\t"+product.getDescribe());
-
                     }
                     int counnt = 0;
                     Product productes[] = new Product[3];
                     boolean bool1 = true;
+                    boolean bool2 = true;
                     while (bool1) {
-
-                        System.out.println("是否添加商品，选择1添加商品，选择2查看购物车，退出选择0");
-                        int cun = sc.nextInt();
-                        if(cun!=1&&cun!=0&&cun!=2){
+                        System.out.println("是否结账，选择1继续添加商品，选择2结账");
+                        int cun1 = sc.nextInt();
+                        if(cun1!=1&&cun1!=2){
                             System.out.println("请输入正确的选择");
                         }
-                        else if(cun == 1) {
-                            System.out.println("选择想要加入购物车的id：");
-                            String inPic = sc.next();
-                            in1 = null;
-                            in1 = Class.forName("Test").getResourceAsStream("/Products.xlsx");
-                            Product product = readproductExcel.getProductByid(inPic, in1);
-                            //将商品加入购物车
-                            if (product != null)
-                                productes[counnt++] = product;
+                        else if(cun1==1) {
+                            while (bool2) {
 
-                        }else if(cun == 0){
-                            bool1 = false;
-                        }
-                        else if(cun==2){
-                            if(productes[0]==null){
-                                System.out.println("购物车为空，请添加商品");
-                            }
-                            for (int i = 0; i<=counnt-1; i++){
-                                if (productes[i] != null){
-                                    System.out.println("你的购物车中已经有" + productes[i].getName());
+                                System.out.println("是否添加商品，选择1添加商品，选择2查看购物车，退出选择0");
+                                int cun = sc.nextInt();
+                                if (cun != 1 && cun != 0 && cun != 2) {
+                                    System.out.println("请输入正确的选择");
+                                } else if (cun == 1) {
+                                    System.out.println("选择想要加入购物车的id：");
+                                    String inPic = sc.next();
+                                    in1 = null;
+                                    in1 = Class.forName("Test").getResourceAsStream("/Products.xlsx");
+                                    Product product = readproductExcel.getProductByid(inPic, in1);
+                                    //将商品加入购物车
+                                    if (product != null)
+                                        productes[counnt++] = product;
+
+                                } else if (cun == 0) {
+                                    bool2 = false;
+                                } else if (cun == 2) {
+                                    if (productes[0] == null) {
+                                        System.out.println("购物车为空，请添加商品");
+                                    }
+                                    for (int i = 0; i <= counnt - 1; i++) {
+                                        if (productes[i] != null) {
+                                            System.out.println("你的购物车中已经有" + productes[i].getName());
+                                        }
+                                    }
                                 }
                             }
+
+                            }
+                        else if(cun1==2){
+                            System.out.println("结账");
+                            bool1=false;
                         }
+
                     }
                     bool = false;
                     break;
                 } else
                     System.out.println("登录失败");
             }
-
-        /*for(int i = 0 ; i<users.length ; i++){
-            System.out.println(users[i].getUsername());
-            System.out.println(users[i].getPassword());
-            System.out.println(users[i].getAddress());
-            System.out.println(users[i].getPhone());
-        }
-*/
         }
     }
 }
