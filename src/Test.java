@@ -1,11 +1,21 @@
-import java.io.InputStream;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import javax.xml.crypto.Data;
+import java.io.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Test {
     static int counnt = 0;
-    static Product productes[] = new Product[3];
+    static Product carts[] = new Product[3];
     static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) throws ClassNotFoundException {
+
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
         InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");
 
         //File file =new File("D:\\学习\\Cmdshop\\src\\users.xlsx");
@@ -23,8 +33,8 @@ public class Test {
                     System.out.println("系统读取到的密码是： " + users[cou].getPassword());
                 }
             }
-            for (User user : users) {
-                if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+            for (int i=0;i<users.length;i++) {
+                if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     System.out.println("登陆成功");
                     while (true) {
                         System.out.println("选择1添加商品到购物车，选择2结账，选择3查看购物车，选择4退出");
@@ -34,16 +44,18 @@ public class Test {
                         } else if (cun1 == 1) {
                             commodity();
                         } else if (cun1 == 2) {
-                            System.out.println("结账");
-                            int tem;
-                            int num = 0;
-                            for (int i = 0; i <= counnt - 1; i++) {
-                                if (productes[i] != null) {
-                                    tem = (int) productes[i].getPrice();
-                                    num += tem;
+                            Order order=new Order();
+                            order.setUser(users[i]);//订单关联用户
+                            Product products[]=new Product[counnt];
+                            for(int j  = 0 ; j <carts.length;j++){
+                                if(carts[j]!=null){
+                                    products[j]=carts[j];
                                 }
                             }
-                            System.out.println("你一共需要付款：" + num);
+                            //订单关联商品
+                            order.setProduct(products);//问题：有的时候只买了两件商品，导致有一个数值没用到
+                            //下订单
+                            CreateOrder.creatOrder(order);
                         } else if (cun1 == 3) {
                             viewcart();
                         } else {
@@ -57,16 +69,18 @@ public class Test {
             }
         }
     }
+
     static void viewcart() {
-        if (productes[0] == null) {
+        if (carts[0] == null) {
             System.out.println("购物车为空，请添加商品");
         }
         for (int i = 0; i <= counnt - 1; i++) {
-            if (productes[i] != null) {
-                System.out.println("你的购物车中已经有" + productes[i].getName());
+            if (carts[i] != null) {
+                System.out.println("你的购物车中已经有" + carts[i].getName());
             }
         }
     }
+
     public static void commodity() throws ClassNotFoundException {
         InputStream in1 = Class.forName("Test").getResourceAsStream("/Products.xlsx");
         ReadproductExcel readproductExcel = new ReadproductExcel();
@@ -84,6 +98,9 @@ public class Test {
         Product product = readproductExcel.getProductByid(inPic, in1);
         //将商品加入购物车
         if (product != null)
-            productes[counnt++] = product;
+            carts[counnt++] = product;
     }
+
+
 }
+
