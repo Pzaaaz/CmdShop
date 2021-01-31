@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="poi-4.1.2">
+    <CLASSES>
+      <root url="jar://D:/蓝桥/poi-bin-4.1.2-20200217/所需jar包/poi-4.1.2.jar!/" />
+      <root url="jar://D:/蓝桥/poi-bin-4.1.2-20200217/所需jar包/poi-ooxml-4.1.2.jar!/" />
+      <root url="jar://D:/蓝桥/poi-bin-4.1.2-20200217/所需jar包/poi-ooxml-schemas-4.1.2.jar!/" />
+      <root url="jar://D:/蓝桥/poi-bin-4.1.2-20200217/所需jar包/xmlbeans-3.1.0.jar!/" />
+      <root url="jar://D:/蓝桥/poi-bin-4.1.2-20200217/所需jar包/commons-math3-3.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
